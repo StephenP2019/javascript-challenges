@@ -1,0 +1,178 @@
+<script>
+// function toArray(obj) {
+//   let arrayOfObjects = []
+//   for (var key in obj) {
+//     if (obj.hasOwnProperty(key)) {
+//       arrayOfObjects.push(key + "," + obj[key])
+//     }
+//   }
+//   return arrayOfObjects.
+// }
+
+function inBox(arr) {
+  return arr.toString().includes("*")
+}
+
+function FirstFactorial(num) {
+  let numberArray = []
+  for (i = num; i > 0; i--){
+    numberArray.push(i)
+    if(i > 1){
+    numberArray.push("*")}
+  }
+
+
+  // code goes here
+  return eval(numberArray.reverse().join(""))
+
+}
+
+function CorrectPath(str) {
+  let colLetters = ["a","b","c","d","e"]
+  let rowNumbers = [1,2,3,4,5]
+  let start = {
+    columnLetter: colLetters[0],
+    column: 0,
+    rowNumber: rowNumbers[0],
+    row: 0,
+  }
+  let possibleLocations = []
+  colLetters.forEach((colLetter, index) =>{
+    rowNumbers.forEach(rowNumber =>{
+      possibleLocations.push([colLetters[index], rowNumber])
+    });
+  });
+  let usedLocations = []
+  let currentLocation
+  let directions = str.split("")
+  let finalStringArray = []
+
+  directions.forEach((direction, index) => {
+
+    if(direction == "r"){
+      start.column++;
+      start.columnLetter = colLetters[start.column];
+      currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+      usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      finalStringArray.push(direction);
+    }
+
+    if(direction == "l"){
+      start.column--;
+      start.columnLetter = colLetters[start.column];
+      currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+      usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      finalStringArray.push(direction);
+    }
+
+    if(direction == "d"){
+      start.row++;
+      start.rowNumber = rowNumbers[start.row];
+      currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+      usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      finalStringArray.push(direction);
+    }
+
+    if(direction == "u"){
+      start.row--;
+      start.rowNumber = rowNumbers[start.row];
+      currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+      usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      finalStringArray.push(direction);
+    }
+
+    if(direction =="?"){
+      let usableDirections = []
+      let availableDirections = []
+      if(start.column+1 < 5){
+        usableDirections.push("r")
+      }
+      if(!start.column-1 < 0){
+        usableDirections.push("l")
+      }
+      if(start.row+1 < 5){
+        usableDirections.push("d")
+      }
+      if(!start.row-1 < 0){
+        usableDirections.push("u")
+      }
+      usableDirections.forEach((usableDirection, index) =>{
+        if(usableDirection == "r"){
+          let nextLocation = [colLetters[start.column+1],rowNumbers[start.row]]
+          if (!usedLocations.includes(nextLocation)){
+            availableDirections.push("r")
+          }
+        }
+        if(usableDirection == "l"){
+          let nextLocation = [colLetters[start.column-1],rowNumbers[start.row]]
+          if (!usedLocations.includes(nextLocation)){
+            availableDirections.push("l")
+          }
+        }
+        if(usableDirection == "d"){
+          let nextLocation = [colLetters[start.column],rowNumbers[start.row+1]]
+          if (!usedLocations.includes(nextLocation)){
+            availableDirections.push("d")
+          }
+        }
+        if(usableDirection == "u"){
+          let nextLocation = [colLetters[start.column],rowNumbers[start.row-1]]
+          if (!usedLocations.includes(nextLocation)){
+            availableDirections.push("u")
+          }
+        }
+      });
+      console.log(usableDirections)
+      console.log(availableDirections)
+      let whichTry = Math.floor(Math.random() * availableDirections.length)
+      if(availableDirections[whichTry] == "r"){
+        start.column++;
+        start.columnLetter = colLetters[start.column];
+        currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+        usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      }
+
+      if(availableDirections[whichTry] == "l"){
+        start.column--;
+        start.columnLetter = colLetters[start.column];
+        currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+        usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      }
+
+      if(availableDirections[whichTry] == "d"){
+        start.row++;
+        start.rowNumber = rowNumbers[start.row];
+        currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+        usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      }
+
+      if(availableDirections[whichTry] == "u"){
+        start.row--;
+        start.rowNumber = rowNumbers[start.row];
+        currentLocation = [colLetters[start.column],rowNumbers[start.row]];
+        usedLocations.push([colLetters[start.column],rowNumbers[start.row]]);
+      }
+      finalStringArray.push(availableDirections[whichTry])
+    }
+  });
+  let strUpdated = finalStringArray.toString();
+  console.log(currentLocation)
+  if(currentLocation == ["e", 5]){
+    return strUpdated;
+  } else {
+    CorrectPath(str)
+  }
+}
+
+function numInStr(arr) {
+	let revisedArray = arr.filter(arrItem => {
+		let hasNo = /\d/.test(arrItem) ? arrItem : false
+		return hasNo
+	});
+	return revisedArray;
+}
+
+console.log(numInStr(['-/>', '10bc', 'abc ']))
+
+
+</script>
