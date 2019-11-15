@@ -172,7 +172,33 @@ function numInStr(arr) {
 	return revisedArray;
 }
 
-console.log(numInStr(['-/>', '10bc', 'abc ']))
+function missingAngle(angle1, angle2) {
+  let sumAngle = angle1+angle2;
+ if(sumAngle > 90){
+   return "acute"
+ } else if (sumAngle < 90){
+   return "obtuse"
+ } else {
+   return "right"
+ }
+}
+
+function getTotalPrice(groceries) {
+  let onlyPrices = groceries.map(grocItem =>{
+    return grocItem.quantity * grocItem.price
+  });
+	let totalCost = onlyPrices.reduce((prev, curr) =>{
+    return prev + curr
+  });
+  return totalCost
+}
+
+console.log(getTotalPrice([
+  { product: "Milk", quantity: 1, price: 1.50 },
+  { product: "Eggs", quantity: 12, price: 0.10 },
+  { product: "Bread", quantity: 2, price: 1.60 },
+  { product: "Cheese", quantity: 1, price: 4.50 }
+]))
 
 
 </script>
